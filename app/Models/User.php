@@ -14,6 +14,25 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
     use Authenticatable, Authorizable;
 
+    protected static function booted()
+    {
+        static::saving(function ($user) {
+
+            $user['password'] = Hash::make($user['password'], [
+                'rounds' => 12,
+            ]);
+
+        });
+
+        static::updating(function ($user) {
+
+            $user['password'] = Hash::make($user['password'], [
+                'rounds' => 12,
+            ]);
+
+        });
+    }
+
     protected $table = 'users';
 
     protected $primaryKey = 'id';
@@ -26,7 +45,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
     protected $hidden = ['password'];
 
-    protected $userId;
+    protected $user;
 
     protected $name;
 

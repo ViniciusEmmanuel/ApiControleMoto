@@ -19,9 +19,9 @@ class User extends Migration
                 ->primary()
                 ->default(new Expression('uuid_generate_v4()'));
 
-            $table->integer('userId')
+            $table->integer('user')
                 ->nullable(false);
-            $table->unique('userId');
+            $table->unique('user');
 
             $table->string('name')
                 ->nullable(false);
