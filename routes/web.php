@@ -11,14 +11,14 @@
 |
  */
 
-$router->get('/', function () use ($router) {
-    return $router->app->version();
-});
+$router->post('/api/session', 'SessionController@store');
 
-$router->group(['prefix' => '/api'], function () use ($router) {
+$router->post('/users', 'UserController@store');
 
-    $router->post('/users', 'UserController@store');
+$router->group(['prefix' => '/api', 'middleware' => 'auth'], function () use ($router) {
 
-    $router->post('/session', 'SessionController@store');
+    $router->get('/gasoline', 'GasolineController@index');
+
+    $router->post('/gasoline', 'GasolineController@store');
 
 });
