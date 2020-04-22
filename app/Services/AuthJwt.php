@@ -48,14 +48,11 @@ class AuthJwt
 
         try {
 
-            $bearer = explode(' ', (string) $this->authorization);
-
-            $ip = (int) $this->ip;
-            $userAgent = (string) $this->userAgent;
-
-            $decode = (array) JWT::decode($bearer[1], env('APP_KEY'), array('HS256'));
+            $decode = $this->decode();
 
             $date = (new DateTime())->getTimestamp();
+            $ip = (int) $this->ip;
+            $userAgent = (string) $this->userAgent;
 
             if ($ip !== (int) $decode['ip'] ||
                 $userAgent !== $decode['userAgent'] ||
@@ -68,6 +65,22 @@ class AuthJwt
         }
 
         return true;
+
+    }
+
+    public function getUser()
+    {
+        $user = $this->decode();
+
+        return $user['id'];
+
+    }
+
+    private function decode()
+    {
+        $bearer = explode(' ', (string) $this->authorization);
+
+        return (array) JWT::decode($bearer[1], env('APP_KEY'), array('HS256'));
 
     }
 

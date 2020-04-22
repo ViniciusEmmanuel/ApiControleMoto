@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
 use App\Services\AuthJwt;
 use Closure;
 use phpDocumentor\Reflection\Types\Object_;
@@ -20,9 +21,17 @@ class Authenticate
     public function handle($request, Closure $next)
     {
 
-        $validate = (new AuthJwt($request))->verify();
+        $auth = new AuthJwt($request);
+
+        $validate = $auth->verify();
 
         if (!$validate) {
+            return response(['message' => 'Unauthorized.', 'data' => new Object_()], 401);
+        }
+
+        $user = $auth->getUser();
+
+        if (!User::where('id', $user)->first()) {
             return response(['message' => 'Unauthorized.', 'data' => new Object_()], 401);
         }
 
