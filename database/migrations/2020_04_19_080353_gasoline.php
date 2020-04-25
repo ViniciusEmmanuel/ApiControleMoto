@@ -17,7 +17,8 @@ class Gasoline extends Migration
         Schema::create('gasoline', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->uuid('user_id');
+            $table->char('user_id', 36)
+                ->charset('ascii');
 
             $table->foreign('user_id')
                 ->references('id')

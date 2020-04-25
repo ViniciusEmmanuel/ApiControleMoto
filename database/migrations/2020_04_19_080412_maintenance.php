@@ -17,21 +17,20 @@ class Maintenance extends Migration
         Schema::create('maintenance', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->uuid('user_id');
+            $table->char('user_id', 36)
+                ->charset('ascii');
 
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users');
 
-            $table->integer('motorcicle_id')
-                ->nullable(false);
+            $table->unsignedInteger('motorcicle_id');
 
             $table->foreign('motorcicle_id')
                 ->references('id')
                 ->on('motorcicles');
 
-            $table->integer('part_id')
-                ->nullable(false);
+            $table->unsignedInteger('part_id');
 
             $table->foreign('part_id')
                 ->references('id')

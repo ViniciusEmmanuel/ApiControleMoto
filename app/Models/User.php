@@ -8,6 +8,7 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Lumen\Auth\Authorizable;
+use Ramsey\Uuid\Uuid;
 
 class User extends Model implements AuthenticatableContract, AuthorizableContract
 {
@@ -18,6 +19,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     {
         static::saving(function ($user) {
 
+            $user['id'] = Uuid::uuid4();
             $user['password'] = Hash::make($user['password'], [
                 'rounds' => 12,
             ]);
@@ -37,13 +39,15 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
     protected $primaryKey = 'id';
 
-    protected $keyType = 'string';
+    protected $keyType = 'char';
 
     public $incrementing = false;
 
     public $timestamps = true;
 
     protected $hidden = ['password'];
+
+    protected $id;
 
     protected $user;
 

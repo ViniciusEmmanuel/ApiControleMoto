@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Query\Expression;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
@@ -15,12 +14,15 @@ class User extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->uuid('id')
+
+            $table->char('id', 36)
                 ->primary()
-                ->default(new Expression('uuid_generate_v4()'));
+                ->charset('ascii')
+                ->nullable(false);
 
             $table->integer('user')
                 ->nullable(false);
+
             $table->unique('user');
 
             $table->string('name')

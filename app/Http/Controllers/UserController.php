@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Services\AuthJwt;
 use Illuminate\Http\Request;
 use phpDocumentor\Reflection\Types\Object_;
 
@@ -35,6 +36,15 @@ class UserController extends Controller
                     , 400);
 
         }
+        $existUser = User::where('user', $dataUser['user'])->first();
+
+        if ($existUser) {
+            return response()
+                ->json([
+                    'message' => 'O numero de usuário já existe.',
+                    'data' => new Object_()],
+                    400);
+        }
 
         $user = new User();
 
@@ -45,7 +55,18 @@ class UserController extends Controller
 
         $user->save();
 
+        $token = (new AuthJwt($request))->sign($user['id']);
+
+        print_r($token);
+
+        $data = [
+            'user' => $user['user'],
+            'name' => $user['name'],
+            'role' => $user['role'],
+            'token' => $token,
+        ];
+
         return response()
-            ->json(['message' => 'success', 'data' => $user], 201);
+            ->json(['message' => 'success', 'data' => $data], 201);
     }
 }
