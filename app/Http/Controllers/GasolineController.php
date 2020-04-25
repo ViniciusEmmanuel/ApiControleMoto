@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Gasoline;
 use App\Services\AuthJwt;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use phpDocumentor\Reflection\Types\Object_;
 
 class GasolineController extends Controller
@@ -16,30 +15,9 @@ class GasolineController extends Controller
 
         $dateAfter = $request->get('date_after');
         $dateBefore = $request->get('date_before');
-        $partId = $request->get('part_id');
         $motorcicleId = $request->get('motorcicle_id');
 
-        $where = ' ' . 'where 1 = ?';
-
-        $binds = [1];
-
-        if ($partId) {
-            $where .= ' ' . 'and vm.part_id = ?';
-            array_push($binds, (int) $partId);
-        }
-
-        if ($dateAfter && $dateBefore) {
-            $where .= ' ' . 'and vm.date between date(?) and date(?)';
-            array_push($binds, $dateBefore);
-            array_push($binds, $dateAfter);
-        }
-
-        if ($motorcicleId) {
-            $where .= ' ' . 'and vm.motorcicle_id = ?';
-            array_push($binds, $motorcicleId);
-        }
-
-        $gasolineLists = DB::select("select * from view_gasoline vg" . $where, $binds);
+        $gasolineLists = Gasoline::findFormatTable($dateBefore, $dateAfter, $motorcicleId);
 
         return $this->createResponse('success', $gasolineLists, 200);
     }
