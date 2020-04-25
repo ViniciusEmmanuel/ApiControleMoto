@@ -57,8 +57,6 @@ class UserController extends Controller
 
         $token = (new AuthJwt($request))->sign($user['id']);
 
-        print_r($token);
-
         $data = [
             'user' => $user['user'],
             'name' => $user['name'],
