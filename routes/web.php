@@ -13,12 +13,30 @@
 
 $router->post('/api/session', 'SessionController@store');
 
-$router->post('/users', 'UserController@store');
+$router->post('/api/users', 'UserController@store');
 
 $router->group(['prefix' => '/api', 'middleware' => 'auth'], function () use ($router) {
+
+    $router->get('/maintenance', 'MaintenanceController@index');
+
+    $router->post('/maintenance', 'MaintenanceController@store');
+
+    $router->delete('/maintenance/{id}', 'MaintenanceController@destroy');
 
     $router->get('/gasoline', 'GasolineController@index');
 
     $router->post('/gasoline', 'GasolineController@store');
+
+    $router->delete('/gasoline/{id}', 'GasolineController@destroy');
+
+    $router->get('/motorcircles', 'MotorcicleController@index');
+
+    $router->post('/motorcircles', 'MotorcicleController@store');
+
+    $router->delete('/motorcircles/{id}', 'MotorcicleController@destroy');
+
+    $router->get('/parts', 'PartsController@index');
+
+    $router->post('/parts', 'PartsController@store');
 
 });
