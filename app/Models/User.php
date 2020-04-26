@@ -57,10 +57,10 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
     protected $role;
 
-    public function comparePassword($password)
+    public static function comparePassword($dbPassword, $password)
     {
 
-        if (Hash::check($this->password, $password)) {
+        if (Hash::check($password, $dbPassword)) {
             return true;
         }
 

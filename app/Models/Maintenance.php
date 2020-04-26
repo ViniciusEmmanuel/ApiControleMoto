@@ -60,6 +60,7 @@ class Maintenance extends Model
             "SELECT
                 x.id,
                 x.date,
+                DATE_FORMAT(x.date, '%d/%m/%Y') as date_formart,
                 x.motorcicle_id,
                 x.board,
                 x.part_id,

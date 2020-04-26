@@ -11,9 +11,12 @@
 |
  */
 
-$router->post('/api/session', 'SessionController@store');
+$router->group(['prefix' => '/api'], function () use ($router) {
 
-$router->post('/api/users', 'UserController@store');
+    $router->post('/session', 'SessionController@store');
+
+    $router->post('/users', 'UserController@store');
+});
 
 $router->group(['prefix' => '/api', 'middleware' => 'auth'], function () use ($router) {
 

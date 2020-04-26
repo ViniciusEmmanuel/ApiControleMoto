@@ -64,7 +64,6 @@ class UserController extends Controller
             'token' => $token,
         ];
 
-        return response()
-            ->json(['message' => 'success', 'data' => $data], 201);
+        return $this->createResponse('success', $data, 201);
     }
 }

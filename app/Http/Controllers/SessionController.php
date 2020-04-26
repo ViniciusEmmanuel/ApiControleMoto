@@ -22,13 +22,21 @@ class SessionController extends Controller
                     'data' => new Object_()], 400);
         }
 
+        if (!User::comparePassword($user['password'], $dataUser['password'])) {
+            return response(
+                ['message' => 'Usuário ou senha incorretos.',
+                    'data' => new Object_()], 400);
+        }
+
         $token = (new AuthJwt($request))->sign($user['id']);
 
-        return response([
+        $data = [
             'user' => $user['user'],
-            'nome' => $user['name'],
+            'name' => $user['name'],
+            'role' => $user['role'],
             'token' => $token,
-        ], 201);
+        ];
 
+        return $this->createResponse('success', $data, 201);
     }
 }
