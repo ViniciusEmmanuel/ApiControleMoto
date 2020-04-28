@@ -50,58 +50,7 @@ class Gasoline extends Model
 
         $where .= ' ';
 
-        return DB::select(
-            "SELECT
-                x.id,
-                x.motorcicle_id,
-                x.board,
-                x.date,
-                DATE_FORMAT(x.date, '%d/%m/%Y') as date_formart,
-                x.km_last,
-                x.km,
-                x.km_per_run,
-                x.km_per_liters,
-                x.liters,
-                x.price,
-                x.total,
-                x.created_at,
-                x.updated_at
-            FROM
-                (
-                SELECT
-                    IF (@motoId <> g.motorcicle_id ,@kmlast := 0, NULL),
-                    g.id,
-                    g.motorcicle_id,
-                    m.board,
-                    g.date,
-                    @kmlast as km_last,
-                    g.km,
-                    CASE
-                        when @kmlast = 0
-                            then 0
-                        else
-                            (g.km- @kmlast)
-                    end as km_per_run,
-                    CASE
-                        when @kmlast = 0
-                            then 0
-                        else
-                            ((g.km - @kmlast) / g.liters)
-                    end as km_per_liters,
-                    g.liters,
-                    g.price,
-                    (g.liters * g.price) as total,
-                    g.created_at,
-                    g.updated_at,
-                    @kmlast := g.km,
-                    @motoId := g.motorcicle_id
-                FROM
-                    gasoline g
-                JOIN motorcicles m ON
-                    (m.id = g.motorcicle_id),
-                    (select @kmlast := 0) as w,
-                    (select @motoId := 0) as ww
-            ) x " . $where . "order by x.id desc", $binds);
+        return DB::select("SELECT * FROM view_gasoline x" . $where . "order by x.id desc", $binds);
     }
 
 }
