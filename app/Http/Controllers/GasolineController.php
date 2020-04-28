@@ -59,7 +59,7 @@ class GasolineController extends Controller
         $gasoline = Gasoline::where('id', (int) $id)->first();
 
         if (!$gasoline) {
-            return $this->createResponse('Id não encontrado.', new Object_(), 400);
+            return $this->createResponse('Id não encontrado.', [], 400);
         }
 
         $gasoline->delete();

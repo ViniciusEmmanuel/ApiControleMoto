@@ -6,7 +6,6 @@ use App\Models\Gasoline;
 use App\Models\Maintenance;
 use App\Services\AuthJwt;
 use Illuminate\Http\Request;
-use phpDocumentor\Reflection\Types\Object_;
 
 class MaintenanceController extends Controller
 {
@@ -34,8 +33,8 @@ class MaintenanceController extends Controller
         if ($sizeArray !== 6) {
             return $this->createResponse(
                 'Por favor, envie todos os dados para ser salvo.',
-                new Object_()
-                , 400);
+                [],
+                400);
 
         }
 
@@ -60,7 +59,7 @@ class MaintenanceController extends Controller
         $maintenance = Gasoline::where('id', (int) $id)->first();
 
         if (!$maintenance) {
-            return $this->createResponse('Id não encontrado.', new Object_(), 400);
+            return $this->createResponse('Id não encontrado.', [], 400);
         }
 
         $maintenance->delete();

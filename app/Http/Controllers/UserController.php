@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Services\AuthJwt;
 use Illuminate\Http\Request;
-use phpDocumentor\Reflection\Types\Object_;
 
 class UserController extends Controller
 {
@@ -21,7 +20,7 @@ class UserController extends Controller
             return response()
                 ->json([
                     'message' => 'Por favor, envie todos os dados para ser salvo.',
-                    'data' => new Object_()]
+                    'data' => []]
                     , 400);
 
         }
@@ -32,7 +31,7 @@ class UserController extends Controller
             return response()
                 ->json([
                     'message' => 'Os dados da senha e confirma senha não são iguais.',
-                    'data' => new Object_()]
+                    'data' => []]
                     , 400);
 
         }
@@ -42,7 +41,7 @@ class UserController extends Controller
             return response()
                 ->json([
                     'message' => 'O numero de usuário já existe.',
-                    'data' => new Object_()],
+                    'data' => []],
                     400);
         }
 

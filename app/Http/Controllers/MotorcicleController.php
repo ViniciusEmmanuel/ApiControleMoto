@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Motorcicle;
 use Illuminate\Http\Request;
-use phpDocumentor\Reflection\Types\Object_;
 
 class MotorcicleController extends Controller
 {
@@ -28,7 +27,7 @@ class MotorcicleController extends Controller
             return response()
                 ->json([
                     'message' => 'Por favor, envie todos os dados para ser salvo.',
-                    'data' => new Object_()]
+                    'data' => []]
                     , 400);
 
         }
@@ -55,7 +54,7 @@ class MotorcicleController extends Controller
         if (!$motorcicle) {
             return response([
                 'messsage' => 'Moto não encontrada.',
-                'data' => new Object_()],
+                'data' => []],
                 400);
         }
 

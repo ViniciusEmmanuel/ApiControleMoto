@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Part;
 use Illuminate\Http\Request;
-use phpDocumentor\Reflection\Types\Object_;
 
 class PartsController extends Controller
 {
@@ -28,10 +27,7 @@ class PartsController extends Controller
         $sizeArray = count($dataPart);
 
         if ($sizeArray < 1) {
-            return $this->createResponse(
-                'Por favor, envie todos os dados para ser salvo.',
-                new Object_(),
-                400);
+            return $this->createResponse('Por favor, envie todos os dados para ser salvo.', [], 400);
 
         }
 

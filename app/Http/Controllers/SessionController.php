@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Services\AuthJwt;
 use Illuminate\Http\Request;
-use phpDocumentor\Reflection\Types\Object_;
 
 class SessionController extends Controller
 {
@@ -17,15 +16,11 @@ class SessionController extends Controller
         $user = User::firstWhere('user', $dataUser['userId']);
 
         if (!$user) {
-            return response(
-                ['message' => 'Usuário ou senha incorretos.',
-                    'data' => new Object_()], 400);
+            return $this->createResponse('Usuário ou senha incorretos.', [], 401);
         }
 
         if (!User::comparePassword($user['password'], $dataUser['password'])) {
-            return response(
-                ['message' => 'Usuário ou senha incorretos.',
-                    'data' => new Object_()], 400);
+            return $this->createResponse('Usuário ou senha incorretos.', [], 401);
         }
 
         $token = (new AuthJwt($request))->sign($user['id']);
