@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Gasoline;
 use App\Models\Maintenance;
 use App\Services\AuthJwt;
 use Illuminate\Http\Request;
@@ -56,7 +55,7 @@ class MaintenanceController extends Controller
     public function destroy(Request $request, $id)
     {
 
-        $maintenance = Gasoline::where('id', (int) $id)->first();
+        $maintenance = Maintenance::where('id', (int) $id)->first();
 
         if (!$maintenance) {
             return $this->createResponse('Id não encontrado.', [], 400);
