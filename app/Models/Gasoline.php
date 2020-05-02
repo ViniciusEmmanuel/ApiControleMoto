@@ -43,7 +43,7 @@ class Gasoline extends Model
             array_push($binds, $dateAfter);
         }
 
-        if ($motorcicleId) {
+        if ($motorcicleId && gettype((int) $motorcicleId) === 'integer') {
             $where .= ' ' . 'and x.motorcicle_id = ?';
             array_push($binds, $motorcicleId);
         }

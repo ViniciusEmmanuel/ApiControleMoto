@@ -44,12 +44,12 @@ class Maintenance extends Model
             array_push($binds, $dateAfter);
         }
 
-        if ($motorcicleId) {
+        if ($motorcicleId && gettype((int) $motorcicleId) === 'integer') {
             $where .= ' ' . 'and x.motorcicle_id = ?';
             array_push($binds, $motorcicleId);
         }
 
-        if ($partId) {
+        if ($partId && gettype((int) $motorcicleId) === 'integer') {
             $where .= ' ' . 'and x.part_id = ?';
             array_push($binds, (int) $partId);
         }
