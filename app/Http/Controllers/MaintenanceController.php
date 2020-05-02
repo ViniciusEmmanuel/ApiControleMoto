@@ -52,6 +52,40 @@ class MaintenanceController extends Controller
         return $this->createResponse('success', $maintenance, 201);
     }
 
+    public function update(Request $request, $id)
+    {
+
+        $dataMaintenance = $request->only(['motorcicleId', 'partId', 'date', 'km', 'price', 'mechanic']);
+
+        $sizeArray = count($dataMaintenance);
+
+        if ($sizeArray !== 6) {
+            return $this->createResponse(
+                'Por favor, envie todos os dados para ser salvo.',
+                [],
+                400);
+
+        }
+
+        $maintenance = Maintenance::where('id', (int) $id)->first();
+
+        if (!$maintenance) {
+            return $this->createResponse('Id não encontrado.', [], 400);
+        }
+
+        $maintenance->user_id = (string) (new AuthJwt($request))->getUser();
+        $maintenance->motorcicle_id = (int) $dataMaintenance['motorcicleId'];
+        $maintenance->part_id = (int) $dataMaintenance['partId'];
+        $maintenance->date = $dataMaintenance['date'];
+        $maintenance->km = (float) $dataMaintenance['km'];
+        $maintenance->price = (float) $dataMaintenance['price'];
+        $maintenance->mechanic = (string) $dataMaintenance['mechanic'];
+
+        $maintenance->save();
+
+        return response([], 204);
+    }
+
     public function destroy(Request $request, $id)
     {
 
