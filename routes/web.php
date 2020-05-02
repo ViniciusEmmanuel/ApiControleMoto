@@ -32,6 +32,8 @@ $router->group(['prefix' => '/api', 'middleware' => 'auth'], function () use ($r
 
     $router->post('/gasoline', 'GasolineController@store');
 
+    $router->put('/gasoline/{id}', 'GasolineController@update');
+
     $router->delete('/gasoline/{id}', 'GasolineController@destroy');
 
     $router->get('/motorcircles', 'MotorcicleController@index');
