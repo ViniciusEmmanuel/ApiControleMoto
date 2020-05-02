@@ -96,7 +96,8 @@ class GasolineController extends Controller
             return $this->createResponse('Id não encontrado.', [], 400);
         }
 
-        $gasoline->delete();
+        $gasoline->deleted = true;
+        $gasoline->save();
 
         return response([], 204);
     }

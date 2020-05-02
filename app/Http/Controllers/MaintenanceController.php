@@ -95,7 +95,8 @@ class MaintenanceController extends Controller
             return $this->createResponse('Id não encontrado.', [], 400);
         }
 
-        $maintenance->delete();
+        $maintenance->deleted = true;
+        $maintenance->save();
 
         return response([], 204);
     }
