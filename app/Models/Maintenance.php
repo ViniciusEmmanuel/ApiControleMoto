@@ -56,7 +56,7 @@ class Maintenance extends Model
 
         $where .= ' ';
 
-        return DB::select("SELECT * FROM view_maintenance x" . $where . "order by x.id desc", $binds);
+        return DB::select("SELECT * FROM view_maintenance x" . $where, $binds);
     }
 
 }

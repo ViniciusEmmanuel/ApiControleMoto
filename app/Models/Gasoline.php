@@ -50,7 +50,7 @@ class Gasoline extends Model
 
         $where .= ' ';
 
-        return DB::select("SELECT * FROM view_gasoline x" . $where . "order by x.id desc", $binds);
+        return DB::select("SELECT * FROM view_gasoline x" . $where, $binds);
     }
 
 }
