@@ -1,24 +1,23 @@
-# Lumen PHP Framework
+## Propósito
 
-[![Build Status](https://travis-ci.org/laravel/lumen-framework.svg)](https://travis-ci.org/laravel/lumen-framework)
-[![Total Downloads](https://poser.pugx.org/laravel/lumen-framework/d/total.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/lumen-framework/v/stable.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![License](https://poser.pugx.org/laravel/lumen-framework/license.svg)](https://packagist.org/packages/laravel/lumen-framework)
+- Api básica para atender o frontend [https://github.com/ViniciusEmmanuel/frontend-contro-moto]
 
-Laravel Lumen is a stunningly fast PHP micro-framework for building web applications with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Lumen attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as routing, database abstraction, queueing, and caching.
+## Desenvolvido
 
-## Official Documentation
+- Lumen [laravel]
+- Postgres
 
-Documentation for the framework can be found on the [Lumen website](https://lumen.laravel.com/docs).
+## Pré requisitos 
 
-## Contributing
+- PHP >= 7.2
+- OpenSSL PHP Extension
+- PDO PHP Extension
+- Mbstring PHP Extension
 
-Thank you for considering contributing to Lumen! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Start
 
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Lumen, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Lumen framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- copiar o arquivo .env.example com o nome de .env
+- gerar uma key e setar na variavel APP_KEY no seu .env
+- configurar seu BD, preferencialmente Postgres
+- Usando Postgres, criar as duas views das tabelas de gasoline e maintenance. Dentro da pasta database/view.
+- Start do servidor [php -S localhost:8000 ./index.php] 
